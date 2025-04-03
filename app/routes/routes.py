@@ -1,0 +1,40 @@
+from flask import Blueprint
+from app.controllers.controllers import *
+
+bp = Blueprint("main", __name__)
+
+
+@bp.route("/")
+@bp.route("/index")
+def index_route():
+    return index()
+
+
+@bp.route("/register", methods=["GET", "POST"])
+def register_route():
+    return register()
+
+
+@bp.route("/login", methods=["GET", "POST"])
+def login_route():
+    return login()
+
+
+@bp.route("/logout")
+def logout_route():
+    return logout()
+
+
+@bp.route("/shop", methods=["GET"])
+def shop_route():
+    return shop()
+
+
+@bp.route("/clientes", methods=["GET"])
+def clientes_route():
+    return cliente()
+
+
+@bp.route("/products", methods=["GET", "POST"])
+def products_route():
+    return products()

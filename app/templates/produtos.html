@@ -1,0 +1,98 @@
+{% extends 'base.html'%} {% block content %}
+<h1>Produtos</h1>
+
+<h2>Adicionar Produtos</h2>
+<form action="/products" method="POST" enctype="multipart/form-data">
+  <label for="name"
+    >Nome
+    <input type="text" name="name" required />
+  </label>
+  <br /><br />
+  <label for="description"
+    >Descrição
+    <input type="text" name="description" required />
+  </label>
+  <br /><br />
+  <label for="category"
+    >categoria
+    <input type="text" name="category" required />
+  </label>
+  <br /><br />
+  <label for="size"
+    >Tamanho
+    <input type="text" name="size" required />
+  </label>
+  <br /><br />
+  <label for="mark"
+    >Marca
+    <input type="text" name="mark" />
+  </label>
+  <br /><br />
+  <label for="color"
+    >Cor
+    <input type="text" name="color" required />
+  </label>
+  <br /><br />
+  <label for="status"
+    >Estado <input type="radio" name="status" value="novo" required /> Novo
+    <input type="radio" name="status" value="seminovo" required /> Seminovo
+    <input type="radio" name="status" value="usado" required /> Usado
+  </label>
+  <br /><br />
+  <label for="obs"
+    >Observação
+    <input type="text" name="obs" />
+  </label>
+  <br /><br />
+  <label for="price"
+    >Preço
+    <input type="text" name="price" required />
+  </label>
+  <br /><br />
+  <label for="img"
+    >Foto
+    <input type="file" name="img" accept="image/*" required />
+  </label>
+  <br /><br />
+
+  <button type="submit">Adicionar</button>
+</form>
+
+{% if produtos %}
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Categoria</th>
+      <th>Tamanho</th>
+      <th>Marca</th>
+      <th>Cor</th>
+      <th>Estado</th>
+      <th>Obs</th>
+      <th>Preço</th>
+      <th>Disponivel</th>
+      <th>Adicionada</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for produto in produtos %}
+    <tr>
+      <td>{{produto[1]}}</td>
+      <td>{{produto[2]}}</td>
+      <td>{{produto[3]}}</td>
+      <td>{{produto[4]}}</td>
+      <td>{{produto[5]}}</td>
+      <td>{{produto[6]}}</td>
+      <td>{{produto[7]}}</td>
+      <td>{{produto[8]}}</td>
+      <td>{{produto[9]}}</td>
+      <td>{{produto[11]}}</td>
+      <td>{{produto[12]}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h3>Nenhum produto cadastrado até o momento</h3>
+{% endif %} {% endblock %}

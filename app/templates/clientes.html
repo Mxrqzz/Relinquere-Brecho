@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Lista de Clientes</h1>
+{% if clientes %}
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Cliente Desde</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cliente in clientes %}
+        <tr>
+        <td>{{cliente[1]}}</td>
+        <td>{{cliente[2]}}</td>
+        <td>{{cliente[5]}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h3>Nenhum cliente cadastrado até o momento.</h3>
+{% endif %}
+{% endblock %}
