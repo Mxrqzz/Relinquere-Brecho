@@ -35,9 +35,7 @@ class Usuario:
 
             cursor = conexao.cursor()
             cursor.execute("SELECT * FROM usuarios WHERE role = 'cliente'")
-            clientes = cursor.fetchall()
-            if clientes:
-                return clientes
+            return cursor.fetchall()
         except Exception as e:
             print(f"Erro ao listar clientes {e}")
             return []

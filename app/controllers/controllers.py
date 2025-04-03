@@ -108,11 +108,11 @@ def admin_required(f):
         if "user_role" not in session:
             flash("Você precisa está logado para acessar essa página", "error")
             return redirect(url_for("main.login_route"))
-        
+
         elif session["user_role"] == "cliente":
             flash("Você não tem permissão para acessar essa página", "error")
             return redirect(url_for("main.shop_route"))
-        
+
         return f(*args, **kwargs)
 
     return decorated_function
@@ -184,7 +184,7 @@ def product_details(product_id):
 
     return render_template("prodDetails.html", produto=produto)
 
+
 #! Carrinho
 def cart():
     return render_template("carrinho.html")
-

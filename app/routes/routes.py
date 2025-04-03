@@ -30,14 +30,6 @@ def shop_route():
     return shop()
 
 
-@bp.route("/cart", methods=["GET"])
-def cart_route():
-    return cart()
-
-@bp.route("/add_to_cart", methods=['POST'])
-def add_to_cart_route():
-    return add_to_cart()
-
 @bp.route("/clientes", methods=["GET"])
 def clientes_route():
     return cliente()
@@ -47,6 +39,12 @@ def clientes_route():
 def products_route():
     return products()
 
+
 @bp.route("/products/<int:product_id>")
 def product_details_route(product_id):
     return product_details(product_id)
+
+
+@bp.route("/cart", methods=["GET"])
+def cart_route():
+    return cart()

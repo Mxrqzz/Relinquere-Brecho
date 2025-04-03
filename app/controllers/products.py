@@ -58,9 +58,8 @@ class Products:
 
             cursor = conexao.cursor()
             cursor.execute("SELECT * FROM produtos")
-            produtos = cursor.fetchall()
-            if produtos:
-                return produtos
+            return cursor.fetchall()
+        
         except Exception as e:
             print(f"Erro ao listar produtos {e}")
             return []
@@ -77,9 +76,8 @@ class Products:
 
             cursor = conexao.cursor()
             cursor.execute("SELECT * FROM produtos WHERE id = %s", (id_produto,))
-            produto = cursor.fetchone()
-            if produto:
-                return produto
+            return cursor.fetchone()
+            
         except Exception as e:
             print(f"Erro ao listar produto {e}")
             return []
