@@ -4,7 +4,6 @@ body {
     margin: 0;
     margin-left: 20px;
     font-family: "Inter", sans-serif;
-
 }
 
 .menu_superior {
@@ -40,5 +39,9 @@ body {
 }
 
 .produtos {
+    display: flex;
+}
+
+.Produto_detalhes {
     display: flex;
 }

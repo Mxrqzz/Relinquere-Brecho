@@ -1,16 +1,21 @@
 {% extends 'base.html' %} {% block content %}
-<h1>loja</h1>
+
 {% if produtos %}
 <div class="produtos">
-{% for produto in produtos %}
-<div class="produto">
-<img src="static/uploads/{{produto[10]}}" alt="" height="400px" width="400px">
-<h3>{{produto[1]}} - {{produto[9]}} R$</h3>
-</div>
-{% endfor%}
+  {% for produto in produtos %}
+  <div class="produto">
+    <a href="{{ url_for('main.product_details_route', product_id=produto[0])}}">
+    <img
+      src="{{ url_for('static', filename='uploads/' + produto[10]) }}"
+      alt=""
+      height="350px"
+      width="350px"
+    />
+    <h3>{{produto[1]}} - {{produto[9]}} R$</h3>
+</a>
+  </div>
+  {% endfor%}
 </div>
 {% else %}
 <h1>Nenhum produto Disponivel até o momento</h1>
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}

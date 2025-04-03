@@ -48,14 +48,14 @@ class Products:
             cursor.close()
             close_connection(conexao)
             print("A Conexão com o banco de dados foi encerrada.")
-            
+
     @staticmethod
     def listar_produtos():
         try:
             conexao = create_connection()
             if not conexao:
-                raise Exception("Conexão com o banco de dados falhou")
-            
+                raise Exception("Conexão com o banco de dados falhou.")
+
             cursor = conexao.cursor()
             cursor.execute("SELECT * FROM produtos")
             produtos = cursor.fetchall()
@@ -65,4 +65,24 @@ class Products:
             print(f"Erro ao listar produtos {e}")
             return []
         finally:
+            cursor.close()
+            close_connection(conexao)
+
+    @staticmethod
+    def detalhes_produto(id_produto):
+        try:
+            conexao = create_connection()
+            if not conexao:
+                raise Exception("Conexão com o banco de dados falhou.")
+
+            cursor = conexao.cursor()
+            cursor.execute("SELECT * FROM produtos WHERE id = %s", (id_produto,))
+            produto = cursor.fetchone()
+            if produto:
+                return produto
+        except Exception as e:
+            print(f"Erro ao listar produto {e}")
+            return []
+        finally:
+            cursor.close()
             close_connection(conexao)

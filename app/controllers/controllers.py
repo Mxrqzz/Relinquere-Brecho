@@ -13,10 +13,11 @@ from app.database import create_connection, close_connection
 from app.controllers.user import Usuario
 from app.controllers.products import Products
 from flask_bcrypt import Bcrypt
+from functools import wraps
 
 cripto = Bcrypt()
 
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpge", 'webp'}
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
 
 
 def allowed_file(filename):
@@ -57,7 +58,7 @@ def register():
             flash("Conta criada com sucesso", "success")
             return render_template("login.html")
         except Exception as e:
-            flash(f"Erro ao tentar criar conta. {e}")
+            flash(f"Erro ao tentar criar conta. {e}", "error")
             return render_template("register.html")
     return render_template("register.html")
 
@@ -100,6 +101,23 @@ def logout():
     return redirect(url_for("main.login_route"))
 
 
+#! Controle de sessão
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "user_role" not in session:
+            flash("Você precisa está logado para acessar essa página", "error")
+            return redirect(url_for("main.login_route"))
+        
+        elif session["user_role"] == "cliente":
+            flash("Você não tem permissão para acessar essa página", "error")
+            return redirect(url_for("main.shop_route"))
+        
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
 #! Shop
 def shop():
     produtos = Products.listar_produtos()
@@ -107,12 +125,14 @@ def shop():
 
 
 #! Cliente
+@admin_required
 def cliente():
     clientes = Usuario.listar_clientes()
     return render_template("clientes.html", clientes=clientes)
 
 
 #! Produtos
+@admin_required
 def products():
 
     produtos = Products.listar_produtos()
@@ -147,10 +167,24 @@ def products():
                 filename,
             )
             produto.adicionar_produto()
-            flash(f"Produto {nome} adicionado com sucesso.")
+            flash(f"Produto {nome} adicionado com sucesso.", "success")
             return redirect(url_for("main.products_route"))
         except Exception as e:
-            flash(f"Erro ao tentar adicionar produto {e}")
+            flash(f"Erro ao tentar adicionar produto {e}", "error")
             return redirect(url_for("main.products_route"))
 
     return render_template("produtos.html", produtos=produtos)
+
+
+def product_details(product_id):
+    produto = Products.detalhes_produto(product_id)
+    if not produto:
+        flash("Produto não encontrado.", "error")
+        return redirect(url_for("main.products_route"))
+
+    return render_template("prodDetails.html", produto=produto)
+
+#! Carrinho
+def cart():
+    return render_template("carrinho.html")
+

@@ -1,12 +1,12 @@
 <nav class="menu_superior">
-    <h1>Logo</h1>
+    <h1>RELINQUERE</h1>
     <ul>
         {% if "user_role" not in session %}
         <li><a href="/">Home</a></li>
         <li><a href="/shop">Loja</a></li>
         <li><a href="#">Categorias</a></li>
         <li><a href="#">Promoções</a></li>
-        <li><a href="#">Carrinho</a></li>
+        <li><a href="/cart">Carrinho</a></li>
         <li><a href="/login">Entrar/Cadastrar</a></li>
 
         {% elif session["user_role"] == "cliente" %}
@@ -14,7 +14,7 @@
         <li><a href="/shop">Loja</a></li>
         <li><a href="#">Categorias</a></li>
         <li><a href="#">Promoções</a></li>
-        <li><a href="#">Carrinho</a></li>
+        <li><a href="/cart">Carrinho</a></li>
         <li><a href="#">Pedidos</a></li>
         <li><a href="#">Minha Conta</a></li>
         <li><a href="/logout">Sair</a></li>

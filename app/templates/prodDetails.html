@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block title %} Relinquere - {{produto[1]}} {%
+endblock %} {% block content %}
+<div class="Produto_detalhes">
+  <div class="sideOne">
+    <img
+      src="{{ url_for('static', filename='uploads/' + produto[10]) }}"
+      alt=""
+      width="800px"
+      height="800px"
+    />
+  </div>
+  <div class="sideTwo">
+    <h1>{{produto[1]}}</h1>
+    <h3><strong>Descrição:</strong> {{ produto[2] }}</h3>
+    <h3><strong>Categoria:</strong> {{ produto[3] }}</h3>
+    <h3><strong>Tamanho:</strong> {{ produto[4] }}</h3>
+    <h3><strong>Marca:</strong> {{ produto[5] }}</h3>
+    <h3><strong>Cor:</strong> {{ produto[6] }}</h3>
+    <h3><strong>Status:</strong> {{ produto[7] }}</h3>
+    <h3><strong>Observações:</strong> {{ produto[8] }}</h3>
+    <h3><strong>Preço:</strong> R$ {{ produto[9] }}</h3>
+    <button>Adicionar ao carrinho</button>
+    <button><a href="{{ url_for('main.shop_route') }}">Voltar</a></button>
+  </div>
+</div>
+{% endblock %}
