@@ -12,6 +12,7 @@ from werkzeug.utils import secure_filename
 from app.database import create_connection, close_connection
 from app.controllers.user import Usuario
 from app.controllers.products import Products
+from app.controllers.cart import Cart
 from flask_bcrypt import Bcrypt
 from functools import wraps
 
@@ -187,4 +188,27 @@ def product_details(product_id):
 
 #! Carrinho
 def cart():
-    return render_template("carrinho.html")
+    carrinho = session.get("cart", {})
+    
+    carrinho_items = Cart.carrinho_items(carrinho)
+    return render_template("carrinho.html", carrinhoItems = carrinho_items)
+
+def add_to_cart(product_id):
+    if "cart" not in session:
+        session["cart"] = {}
+        
+    cart = session["cart"]
+    ...
+    
+    product_id = str(product_id)
+    
+    if product_id in cart:
+        cart[product_id] += 1
+        print('produto adicionado ao carrinho')
+    else:
+        cart[product_id] = 1
+        
+        
+    session["cart"] = cart
+    flash("Produto adcionado ao carrinho!", "success")
+    return redirect(url_for("main.cart_route"))

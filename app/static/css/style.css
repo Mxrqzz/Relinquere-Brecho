@@ -45,3 +45,7 @@ body {
 .Produto_detalhes {
     display: flex;
 }
+
+carrinho_item{
+    display: flex;
+}

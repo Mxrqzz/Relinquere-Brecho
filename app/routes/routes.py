@@ -48,3 +48,7 @@ def product_details_route(product_id):
 @bp.route("/cart", methods=["GET"])
 def cart_route():
     return cart()
+
+@bp.route("/addToCart/<int:product_id>", methods=["POST"])
+def add_to_cart_route(product_id):
+    return add_to_cart(product_id)

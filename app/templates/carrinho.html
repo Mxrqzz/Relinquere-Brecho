@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
 {% block title %} Relinquere - Carrinho {% endblock %}
 {% block content %}
+{% if carrinhoItems|length > 0 %}
+<div class="carrinhoItems">
+{% for produto in carrinhoItems %}
+<div class="carrinho_item">
+    <h1>{{produto[1]}} {{produto[3]}} {{produto[3]}}</h1>
+    
+</div>
+{% endfor %}
+</div>
+{% else %}
+<h1>Seu Carrinho está vazio</h1>
+<a href="{{url_for('main.shop_route')}}">Ver produtos</a>
+{% endif %}
 
 {% endblock %}

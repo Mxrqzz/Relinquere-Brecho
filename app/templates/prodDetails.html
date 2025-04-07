@@ -19,7 +19,12 @@ endblock %} {% block content %}
     <h3><strong>Status:</strong> {{ produto[7] }}</h3>
     <h3><strong>Observações:</strong> {{ produto[8] }}</h3>
     <h3><strong>Preço:</strong> R$ {{ produto[9] }}</h3>
-    <button>Adicionar ao carrinho</button>
+    <form
+      action="{{ url_for('main.add_to_cart_route', product_id=produto[0]) }}"
+      method="post"
+    >
+      <button type="submit">Adicionar ao carrinho</button>
+    </form>
     <button><a href="{{ url_for('main.shop_route') }}">Voltar</a></button>
   </div>
 </div>
