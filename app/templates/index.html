@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block title %} RELINQUERE - Home {% endblock %}
 {% block content %}
-<h1>index</h1>
+{% if "user_name" in session %}
+<h1>Olá, {{session["user_name"]}}</h1>
+{% else %}
+<h1>Olá, seja bem vindo</h1>
+{% endif %}
 
 {% endblock %}

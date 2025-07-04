@@ -15,7 +15,7 @@ body {
     width: 100%;
 }
 
-.menu_superior ul{
+.menu_superior ul {
     list-style: none;
     margin: 0;
     padding: 0%;
@@ -24,7 +24,7 @@ body {
     padding: 10px 20px;
 }
 
-.menu_superior ul li{
+.menu_superior ul li {
     margin-right: 80px;
     margin-left: 20px;
 }
@@ -46,6 +46,7 @@ body {
     display: flex;
 }
 
-carrinho_item{
+
+.carrinho_item {
     display: flex;
 }

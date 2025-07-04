@@ -31,10 +31,10 @@ def index():
 
 def register():
     if request.method == "POST":
-        name = request.form["name"]
-        email = request.form["email"]
-        senha = request.form["password"]
-        senha2 = request.form["passwordTwo"]
+        name = request.form["name"].capitalize().strip()
+        email = request.form["email"].strip()
+        senha = request.form["password"].strip()
+        senha2 = request.form["passwordTwo"].strip()
 
         # Verifica se as senha e a confirmação estão iguais
         if senha != senha2:
@@ -66,8 +66,8 @@ def register():
 
 def login():
     if request.method == "POST":
-        email = request.form["email"]
-        senha = request.form["password"]
+        email = request.form["email"].strip()
+        senha = request.form["password"].strip()
 
         conexao = create_connection()
 
@@ -85,8 +85,9 @@ def login():
                     session["user_name"] = user[1]
                     session["user_email"] = user[2]
                     session["user_role"] = user[4]
+                    Cart.sincronizar_carrinho()
                     close_connection(conexao)
-                    return redirect(url_for("main.shop_route"))
+                    return redirect(url_for("main.index_route"))
                 else:
                     flash("Senha incorreta", "error")
             else:
@@ -123,6 +124,11 @@ def admin_required(f):
 def shop():
     produtos = Products.listar_produtos()
     return render_template("shop.html", produtos=produtos)
+
+
+#! Profile
+def profile():
+    return render_template("profile.html")
 
 
 #! Cliente
@@ -188,27 +194,20 @@ def product_details(product_id):
 
 #! Carrinho
 def cart():
-    carrinho = session.get("cart", {})
-    
-    carrinho_items = Cart.carrinho_items(carrinho)
-    return render_template("carrinho.html", carrinhoItems = carrinho_items)
+    carrinho_items = Cart.carrinho_items()
+    total = sum([item[9] for item in carrinho_items])
+    return render_template("carrinho.html", carrinhoItems=carrinho_items, total=total)
+
 
 def add_to_cart(product_id):
-    if "cart" not in session:
-        session["cart"] = {}
-        
-    cart = session["cart"]
-    ...
-    
-    product_id = str(product_id)
-    
-    if product_id in cart:
-        cart[product_id] += 1
-        print('produto adicionado ao carrinho')
-    else:
-        cart[product_id] = 1
-        
-        
-    session["cart"] = cart
-    flash("Produto adcionado ao carrinho!", "success")
+    Cart.adicionar(product_id)
+    return redirect(url_for("main.shop_route"))
+
+
+def remove_from_cart(product_id):
+    Cart.remover(product_id)
     return redirect(url_for("main.cart_route"))
+
+#! Checkout
+def checkout():
+    return render_template('checkout.html')

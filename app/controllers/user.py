@@ -1,4 +1,5 @@
 from app.database import create_connection, close_connection
+from flask import session
 
 
 class Usuario:
@@ -41,3 +42,6 @@ class Usuario:
             return []
         finally:
             close_connection(conexao)
+
+
+

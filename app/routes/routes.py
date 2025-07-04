@@ -25,6 +25,11 @@ def logout_route():
     return logout()
 
 
+@bp.route("/profile", methods=["GET"])
+def profile_route():
+    return profile()
+
+
 @bp.route("/shop", methods=["GET"])
 def shop_route():
     return shop()
@@ -49,6 +54,17 @@ def product_details_route(product_id):
 def cart_route():
     return cart()
 
+
 @bp.route("/addToCart/<int:product_id>", methods=["POST"])
 def add_to_cart_route(product_id):
     return add_to_cart(product_id)
+
+
+@bp.route("/remoteFromCart/<int:product_id>", methods=["POST"])
+def remove_from_cart_route(product_id):
+    return remove_from_cart(product_id)
+
+
+@bp.route("/checkout", methods=["GET"])
+def checkout_route():
+    return checkout()

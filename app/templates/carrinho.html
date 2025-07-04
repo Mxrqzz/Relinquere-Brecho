@@ -1,18 +1,36 @@
-{% extends 'base.html' %}
-{% block title %} Relinquere - Carrinho {% endblock %}
-{% block content %}
-{% if carrinhoItems|length > 0 %}
+{% extends 'base.html' %} {% block title %} Relinquere - Carrinho {% endblock %}
+{% block content %} {% if carrinhoItems|length > 0 %}
 <div class="carrinhoItems">
-{% for produto in carrinhoItems %}
-<div class="carrinho_item">
-    <h1>{{produto[1]}} {{produto[3]}} {{produto[3]}}</h1>
-    
+  {% for produto in carrinhoItems %}
+  <div class="carrinho_item">
+    <div class="sideOne">
+      <img
+        src="{{ url_for('static', filename='uploads/' + produto[10]) }}"
+        alt=""
+        width="200px"
+        height="200px"
+      />
+    </div>
+    <div class="sideTwo">
+      <h2>{{ produto[1] }}</h2>
+      <p><strong>Tamanho:</strong> {{ produto[4] }}</p>
+      <p><strong>Estado:</strong> {{ produto[7] }}</p>
+      <p><strong>Preço:</strong> R$ {{ produto[9] }}</p>
+      <form
+        action="{{ url_for('main.remove_from_cart_route', product_id=produto[0]) }}"
+        method="POST"
+      >
+        <button type="submit">🗑 Remover</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}
+<div class="total">
+<h1>Total = {{total}}</h1>
+<button><a href="{{url_for('main.shop_route')}}">Finalizar Compra</a></button>
 </div>
 {% else %}
 <h1>Seu Carrinho está vazio</h1>
 <a href="{{url_for('main.shop_route')}}">Ver produtos</a>
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}
